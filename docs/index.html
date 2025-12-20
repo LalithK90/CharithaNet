@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CharithaNet Paper Viewer</title>
+    <style>
+      html, body { height: 100%; margin: 0; }
+      .container { height: 100%; display: flex; flex-direction: column; }
+      header { padding: 12px 16px; background: #0f1419; color: #fff; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+      header a { color: #9ad; text-decoration: none; }
+      main { flex: 1; }
+      .pdf-embed { width: 100%; height: 100%; border: none; }
+      .fallback { padding: 16px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <strong>CharithaNet</strong> — COVID-19 Identification with Chest X‑Ray
+        <span style="float:right">
+          <a href="../README.md">README</a>
+          ·
+          <a href="https://github.com/LalithK90/CharithaNet">GitHub</a>
+        </span>
+      </header>
+      <main>
+        <!-- Try to embed the PDF inline -->
+        <object class="pdf-embed" data="../1-CJMR_Vol_08_1_and_2_Diagnostic-of-COVID-19-Pneumonia-through-Convolutional-Neural-Networks-Using-Chest-X-RAY.pdf" type="application/pdf">
+          <div class="fallback">
+            Your browser can’t display the PDF inline.
+            <br />
+            <a href="../1-CJMR_Vol_08_1_and_2_Diagnostic-of-COVID-19-Pneumonia-through-Convolutional-Neural-Networks-Using-Chest-X-RAY.pdf">Download/View the PDF</a>
+          </div>
+        </object>
+      </main>
+    </div>
+  </body>
+  </html>
