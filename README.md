@@ -45,11 +45,13 @@ If you use this repository or derivatives, please credit the first author above 
 ## Figures
 Model overview and results:
 
-![Model Architecture](model.png)
+| Model Architecture | AR View |
+| --- | --- |
+| <img src="model.png" alt="Model Architecture" width="420"> | <img src="model-ar-view-graphical.png" alt="Model AR View" width="420"> |
 
-![Model AR View](model-ar-view-graphical.png)
+**Confusion Matrix**
 
-![Confusion Matrix](confusion_matrix.png)
+<img src="confusion_matrix.png" alt="Confusion Matrix" width="860">
 
 ## License
 This project is licensed under the terms in `LICENSE`.
