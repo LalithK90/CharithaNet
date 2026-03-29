@@ -1,39 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CharithaNet Paper Viewer</title>
-    <style>
-      html, body { height: 100%; margin: 0; }
-      .container { height: 100%; display: flex; flex-direction: column; }
-      header { padding: 12px 16px; background: #0f1419; color: #fff; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
-      header a { color: #9ad; text-decoration: none; }
-      main { flex: 1; }
-      .pdf-embed { width: 100%; height: 100%; border: none; }
-      .fallback { padding: 16px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <strong>CharithaNet</strong> — COVID-19 Identification with Chest X‑Ray
-        <span style="float:right">
-          <a href="../README.md">README</a>
-          ·
-          <a href="https://github.com/LalithK90/CharithaNet">GitHub</a>
-        </span>
-      </header>
-      <main>
-        <!-- Try to embed the PDF inline -->
-        <object class="pdf-embed" data="1-CJMR_Vol_08_1_and_2_Diagnostic-of-COVID-19-Pneumonia-through-Convolutional-Neural-Networks-Using-Chest-X-RAY.pdf" type="application/pdf">
-          <div class="fallback">
-            Your browser can't display the PDF inline.
-            <br />
-            <a href="1-CJMR_Vol_08_1_and_2_Diagnostic-of-COVID-19-Pneumonia-through-Convolutional-Neural-Networks-Using-Chest-X-RAY.pdf">Download/View the PDF</a>
-          </div>
-        </object>
-      </main>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CharithaNet — COVID-19 Identification with Chest X-Ray</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<header>
+  <h1>CharithaNet</h1>
+  <p>COVID-19 Identification with Chest X-Ray using Convolutional Neural Networks</p>
+  <div>
+    <span class="badge">Custom CNN Architecture</span>
+    <span class="badge">5 Experimental Versions</span>
+    <span class="badge">GradCAM + Saliency Maps</span>
+    <span class="badge">99.6% Accuracy</span>
+    <span class="badge">Published Research</span>
+  </div>
+</header>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#methodology">Methodology</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#quick-start">Quick Start</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="https://fgs.cmb.ac.lk/journal/" target="_blank">Paper</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <!-- ═══════════════════════ OVERVIEW ═══════════════════════ -->
+  <section id="overview">
+    <h2>📖 Project Overview</h2>
+    <p>
+      <strong>CharithaNet</strong> is a custom deep learning system for automated COVID-19 pneumonia
+      detection from chest X-ray images, developed as an MSc Computer Science (SLQF Level 10)
+      research project at the Postgraduate Institute of Science (PGIS), University of Peradeniya,
+      Sri Lanka.
+    </p>
+    <p>
+      The system evolved through <strong>5 iterative experimental versions</strong>, culminating in a
+      novel parallel-kernel CNN architecture that achieves <strong>99.6% classification accuracy</strong>
+      on held-out test data — with full explainability via GradCAM heat maps and Saliency Maps.
+    </p>
+
+    <h3>🎯 Research Objective</h3>
+    <p>
+      Design and validate a convolutional neural network capable of reliably distinguishing
+      COVID-19-positive chest X-rays from normal/non-COVID cases, providing both accurate predictions
+      and visual explanations that are interpretable by clinicians.
+    </p>
+
+    <h3>What Makes CharithaNet Different?</h3>
+    <ul class="feature-list">
+      <li><strong>Novel Parallel-Kernel CNN:</strong> Simultaneous multi-scale feature extraction using kernels of size 3, 5, 7, and 9 in parallel branches</li>
+      <li><strong>Iterative Design:</strong> 5 systematically improved experimental versions with documented trade-offs</li>
+      <li><strong>Visual Explainability:</strong> GradCAM and Saliency Map visualizations highlight diagnostic regions in X-rays</li>
+      <li><strong>Multi-Dataset Training:</strong> Combined IEEE COVID-CXR and Kaggle CoronaHack datasets for robustness</li>
+      <li><strong>End-to-End Deployment:</strong> Flask web application for real-time inference</li>
+      <li><strong>Peer-Reviewed:</strong> Published in the Colombo Journal of Multi-Disciplinary Research (CJMR), Vol. 8</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════ METHODOLOGY ═══════════════════════ -->
+  <section id="methodology">
+    <h2>✨ Methodology</h2>
+    <div class="grid">
+      <div class="card">
+        <h4>📂 Dataset</h4>
+        <p>Combined two publicly available chest X-ray repositories:</p>
+        <ul class="feature-list">
+          <li>IEEE COVID Chest X-Ray Dataset</li>
+          <li>Kaggle CoronaHack Dataset</li>
+          <li>Binary labels: COVID-19 Positive / Negative</li>
+          <li>Train / Validation / Test splits</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>🧠 Parallel-Kernel CNN</h4>
+        <p>CharithaNet's core innovation — a custom multi-branch CNN that extracts features at multiple spatial scales simultaneously:</p>
+        <ul class="feature-list">
+          <li>Parallel Conv2D branches (k = 3, 5, 7, 9)</li>
+          <li>Concatenated feature maps</li>
+          <li>Dense layers with Dropout regularisation</li>
+          <li>Binary sigmoid output</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>🔬 Explainability (XAI)</h4>
+        <p>Two complementary visualisation techniques to explain model decisions:</p>
+        <ul class="feature-list">
+          <li><strong>GradCAM</strong> — gradient-weighted class activation maps</li>
+          <li><strong>Saliency Maps</strong> — pixel-level gradient attribution</li>
+          <li>Applied to both COVID+ and COVID− samples</li>
+          <li>Qualitative validation of diagnostic regions</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>📈 Training Strategy</h4>
+        <p>Rigorous iterative experimentation across 5 versions:</p>
+        <ul class="feature-list">
+          <li>ModelCheckpoint callbacks (best val_accuracy)</li>
+          <li>25 epochs with real-time metric tracking</li>
+          <li>Multiple metrics: accuracy, precision, recall, F1</li>
+          <li>ROC-AUC, sensitivity, specificity analysis</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>🌐 Web Deployment</h4>
+        <p>Production-ready inference via a lightweight Flask application:</p>
+        <ul class="feature-list">
+          <li>Base64 image upload via REST API</li>
+          <li>OpenCV preprocessing pipeline</li>
+          <li>Real-time COVID-19 Positive / Negative prediction</li>
+          <li>Confidence score returned per request</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>📊 Evaluation</h4>
+        <p>Comprehensive test-set evaluation beyond simple accuracy:</p>
+        <ul class="feature-list">
+          <li>Classification report (per-class metrics)</li>
+          <li>Confusion matrix visualisation</li>
+          <li>Sensitivity (TPR) &amp; Specificity (TNR)</li>
+          <li>ROC curve and AUC score</li>
+        </ul>
+      </div>
     </div>
-  </body>
-  </html>
+  </section>
+
+  <!-- ═══════════════════════ ARCHITECTURE ═══════════════════════ -->
+  <section id="architecture">
+    <h2>🏗️ Model Architecture</h2>
+
+    <div class="figure-grid">
+      <div class="figure-item">
+        <img src="model.png" alt="CharithaNet Model Architecture Diagram" />
+        <p class="figure-caption">Figure 1 — CharithaNet model architecture overview</p>
+      </div>
+      <div class="figure-item">
+        <img src="model-ar-view-graphical.png" alt="CharithaNet Graphical AR View" />
+        <p class="figure-caption">Figure 2 — Graphical representation of the network layers</p>
+      </div>
+    </div>
+
+    <h3>Parallel-Kernel Design</h3>
+    <pre><code>Input (224×224 grayscale chest X-ray)
+        │
+        ├── Conv2D (k=3, 128 filters, same, ReLU)
+        ├── Conv2D (k=5, 128 filters, same, ReLU)
+        ├── Conv2D (k=7, 128 filters, same, ReLU)
+        └── Conv2D (k=9, 128 filters, same, ReLU)
+                │
+           Concatenate
+                │
+        MaxPooling2D  →  Flatten
+                │
+          Dense (256, ReLU)  →  Dropout
+                │
+          Dense (1, Sigmoid)
+                │
+     Output: COVID-19 Positive / Negative</code></pre>
+
+    <h3>Technology Stack</h3>
+    <div class="tech-stack">
+      <span class="tech-badge">Python 3.9</span>
+      <span class="tech-badge">TensorFlow / Keras</span>
+      <span class="tech-badge">OpenCV</span>
+      <span class="tech-badge">NumPy</span>
+      <span class="tech-badge">scikit-learn</span>
+      <span class="tech-badge">Flask</span>
+      <span class="tech-badge">Matplotlib / Seaborn</span>
+      <span class="tech-badge">Jupyter Notebook</span>
+      <span class="tech-badge">Conda</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ RESULTS ═══════════════════════ -->
+  <section id="results">
+    <h2>📊 Experimental Results</h2>
+
+    <h3>Version Comparison</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Version</th>
+          <th>Architecture Notes</th>
+          <th>Accuracy</th>
+          <th>Precision</th>
+          <th>Recall</th>
+          <th>F1-Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>v1</td>
+          <td>Parallel kernels k = 3, 5, 7</td>
+          <td>99.0%</td>
+          <td>98.5%</td>
+          <td>98.5%</td>
+          <td>99.0%</td>
+        </tr>
+        <tr>
+          <td>v2</td>
+          <td>Parallel kernels k = 3, 5, 7, 9</td>
+          <td>99.0%</td>
+          <td>98.9%</td>
+          <td>98.8%</td>
+          <td>99.0%</td>
+        </tr>
+        <tr>
+          <td>v3</td>
+          <td>Architecture refinement + GradCAM</td>
+          <td>94.3%</td>
+          <td>95.2%</td>
+          <td>93.3%</td>
+          <td>94.0%</td>
+        </tr>
+        <tr>
+          <td>v4</td>
+          <td>Experimental variant</td>
+          <td>54.6%</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+        </tr>
+        <tr class="highlight">
+          <td>v5 — CharithaNet</td>
+          <td>Final model + GradCAM + Saliency Maps</td>
+          <td>99.6%</td>
+          <td>99.6%</td>
+          <td>99.6%</td>
+          <td>99.6%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-info">
+      <strong>ℹ️ Note on v4:</strong> Version 4 explored an experimental architecture change that did not
+      converge on the test set, demonstrating the value of systematic iterative experimentation.
+      Insights from this version directly informed the final CharithaNet design.
+    </div>
+
+    <h3>Confusion Matrix — CharithaNet (v5)</h3>
+    <div class="figure-full">
+      <img src="confusion_matrix.png" alt="Confusion Matrix for CharithaNet v5" />
+      <p class="figure-caption" style="text-align:center; margin-top:10px;">
+        Figure 3 — Confusion matrix for CharithaNet v5 on held-out test data (946 samples)
+      </p>
+    </div>
+
+    <h3>Key Performance Highlights</h3>
+    <ul class="feature-list" style="margin-top:16px;">
+      <li>Sensitivity (True Positive Rate): 99.5% — very few COVID cases missed</li>
+      <li>Specificity (True Negative Rate): 99.6% — minimal false positives</li>
+      <li>ROC-AUC: 0.992 — near-perfect discriminative ability</li>
+      <li>Balanced accuracy confirms performance on both classes</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════ QUICK START ═══════════════════════ -->
+  <section id="quick-start">
+    <h2>🚀 Quick Start</h2>
+
+    <h3>Prerequisites</h3>
+    <ul class="feature-list">
+      <li>Anaconda / Miniconda installed</li>
+      <li>Python 3.9 (managed via Conda)</li>
+      <li>GPU recommended for training (CPU works for inference)</li>
+    </ul>
+
+    <h3>1 — Environment Setup</h3>
+    <pre><code># Clone the repository
+git clone https://github.com/LalithK90/CharithaNet.git
+cd CharithaNet
+
+# Create and activate the Conda environment
+conda env create -f requirment_for_project.yml
+conda activate tensorflow</code></pre>
+
+    <h3>2 — Run Training Notebooks</h3>
+    <pre><code># Launch Jupyter and open any version notebook
+jupyter notebook
+
+# Notebooks (in traning-notebook/):
+#   covid-19-identification-with-chest-x-ray-v1.ipynb  ← initial prototype
+#   covid-19-identification-with-chest-x-ray-v2.ipynb  ← extended kernels
+#   covid-19-identification-with-chest-x-ray-v3.ipynb  ← GradCAM added
+#   covid-19-identification-with-chest-x-ray-v4.ipynb  ← experimental
+#   covid-19-identification-with-chest-x-ray-v5.ipynb  ← final CharithaNet</code></pre>
+
+    <h3>3 — Run the Web App</h3>
+    <pre><code>cd charitha_net_web_app
+
+# Install Flask dependencies
+pip install -r requirements.txt
+
+# Start the inference server
+python app.py
+# → http://localhost:5000</code></pre>
+
+    <div class="alert alert-warning">
+      <strong>⚠️ Clinical Disclaimer:</strong> CharithaNet is a research prototype developed for academic
+      purposes. It is <strong>not approved</strong> for clinical diagnosis or patient care. Always consult
+      qualified healthcare professionals for medical decisions.
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ RESEARCH ═══════════════════════ -->
+  <section id="research">
+    <h2>🎓 Research Context</h2>
+
+    <h3>Degree Programme</h3>
+    <p><strong>Master of Science in Computer Science (MSc CS — SLQF Level 10)</strong></p>
+    <p><strong>Institution:</strong> Postgraduate Institute of Science (PGIS), University of Peradeniya, Sri Lanka</p>
+    <p><strong>Focus:</strong> Deep Learning for Medical Image Analysis</p>
+
+    <h3>Publication</h3>
+    <div class="citation">
+      K. R. A. L. Kahatapitiya, G. P. Liyanage, K. G. S. U. R. Bandara and K. B. A. Madushi,
+      "Diagnostic of COVID-19 Pneumonia through Convolutional Neural Networks Using Chest X-RAY,"
+      <em>Colombo Journal of Multi-Disciplinary Research (CJMR)</em>, Faculty of Graduate Studies,
+      University of Colombo, Vol. 8, No. 1 &amp; 2, 2023.
+    </div>
+
+    <h3>Research Questions Addressed</h3>
+    <ol style="padding-left:20px; line-height:2;">
+      <li>Can a custom parallel-kernel CNN outperform single-kernel baselines on COVID-19 X-ray classification?</li>
+      <li>How does kernel diversity (multi-scale feature extraction) affect classification performance?</li>
+      <li>Can GradCAM and Saliency Maps provide clinically meaningful visual explanations?</li>
+      <li>What architectural choices most significantly impact model accuracy across iterative versions?</li>
+    </ol>
+
+    <h3>Novel Contributions</h3>
+    <ul class="feature-list">
+      <li>Proposed parallel multi-kernel CNN architecture (CharithaNet) for COVID-19 diagnosis</li>
+      <li>Systematic 5-version iterative experimentation with documented ablation insights</li>
+      <li>Combined GradCAM and Saliency Map explainability for binary chest X-ray classification</li>
+      <li>End-to-end deployment pipeline from training notebook to Flask REST API</li>
+    </ul>
+
+    <div style="margin-top: 32px;">
+      <a href="https://github.com/LalithK90/CharithaNet" class="btn" target="_blank">View on GitHub</a>
+      <a href="https://fgs.cmb.ac.lk/journal/" class="btn btn-secondary" target="_blank">View Journal</a>
+      <a href="1-CJMR_Vol_08_1_and_2_Diagnostic-of-COVID-19-Pneumonia-through-Convolutional-Neural-Networks-Using-Chest-X-RAY.pdf" class="btn btn-outline" target="_blank">Download Paper (PDF)</a>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer>
+  <p>&copy; 2023 CharithaNet — COVID-19 Identification Research Project</p>
+  <p>MSc Computer Science | Postgraduate Institute of Science (PGIS), University of Peradeniya, Sri Lanka</p>
+</footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
