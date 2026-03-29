@@ -142,3 +142,6 @@ target.npy
 *.model
 wandb
 *.h5
+
+.DS_Store
+.claude
